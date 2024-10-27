@@ -4,7 +4,15 @@ Welcome to the `Next.js SaaS Starter with Stripe` – your ultimate boilerplate 
 
 ## 🎯 Overview
 
-A powerful SaaS starter kit built with Next.js, Stripe, Supabase, Typescript, and Tailwind CSS. Perfect for launching your next SaaS project!
+A powerful SaaS starter-kit built with Next.js, Stripe, Supabase, Typescript, and Tailwind CSS. Perfect for launching your next SaaS project!
+
+### 🎥 Demo Video
+
+https://github.com/user-attachments/assets/0c7ab869-6042-490d-9064-f3988b57c8d2
+
+### 🌍 Live Demo
+
+https://next-stripe-supabase-tailwind-typescript-833ul4dwq.vercel.app/
 
 ## ✨ Key Features
 
@@ -39,10 +47,10 @@ A powerful SaaS starter kit built with Next.js, Stripe, Supabase, Typescript, an
 
 ### 🔍 Code Quality
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mustafacagri_next-stripe-supabase-tailwind&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mustafacagri_next-stripe-supabase-tailwind)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mustafacagri_next-stripe-supabase-tailwind&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=mustafacagri_next-stripe-supabase-tailwind)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=mustafacagri_next-stripe-supabase-tailwind&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=mustafacagri_next-stripe-supabase-tailwind)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=mustafacagri_next-stripe-supabase-tailwind&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=mustafacagri_next-stripe-supabase-tailwind)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mustafacagri_next-stripe-supabase-tailwind-typescript&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mustafacagri_next-stripe-supabase-tailwind)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mustafacagri_next-stripe-supabase-tailwind-typescript&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=mustafacagri_next-stripe-supabase-tailwind)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=mustafacagri_next-stripe-supabase-tailwind-typescript&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=mustafacagri_next-stripe-supabase-tailwind)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=mustafacagri_next-stripe-supabase-tailwind-typescript&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=mustafacagri_next-stripe-supabase-tailwind)
 
 This project is analyzed by:
 
