@@ -12,7 +12,7 @@ https://github.com/user-attachments/assets/0c7ab869-6042-490d-9064-f3988b57c8d2
 
 ### 🌍 Live Demo
 
-https://next-stripe-supabase-tailwind-typescript-833ul4dwq.vercel.app/
+https://next-stripe-supabase-tailwind-typescript.vercel.app/
 
 ## ✨ Key Features
 
