@@ -1,0 +1,66 @@
+graph TD
+    root["apto-rio/"] --> app["app/"]
+    root --> components["components/"]
+    root --> hooks["hooks/"]
+    root --> lib["lib/"]
+    root --> public["public/"]
+    root --> store["store/"]
+    root --> supabase["supabase/"]
+    root --> styles["styles/"]
+    root --> types["types/"]
+    root --> utils["utils/"]
+    
+    app --> page["page.tsx"]
+    app --> layout["layout.tsx"]
+    app --> auth["auth/"]
+    app --> dashboard["dashboard/"]
+    app --> properties["properties/"]
+    app --> pricing["pricing/"]
+    app --> api["api/"]
+    
+    properties --> propertyList["page.tsx"]
+    properties --> propertyId["[id]/"]
+    properties --> search["search/"]
+    
+    dashboard --> dashboardPage["page.tsx"]
+    dashboard --> developer["developer/"]
+    dashboard --> agent["agent/"]
+    dashboard --> buyer["buyer/"]
+    dashboard --> settings["settings/"]
+    
+    api --> webhooks["webhooks/"]
+    api --> ai["ai/"]
+    
+    components --> ui["ui/"]
+    components --> layout["layout/"]
+    components --> properties["properties/"]
+    components --> subscription["subscription/"]
+    components --> auth["auth/"]
+    components --> forms["forms/"]
+    components --> dashboard["dashboard/"]
+    
+    hooks --> useAuth["useAuth.ts"]
+    hooks --> useSubscription["useSubscription.ts"]
+    hooks --> useProperties["useProperties.ts"]
+    hooks --> useMedia["useMedia.ts"]
+    hooks --> useInquiries["useInquiries.ts"]
+    
+    lib --> supabaseClient["supabase/client.ts"]
+    lib --> stripeClient["stripe/client.ts"]
+    lib --> openai["openai/client.ts"]
+    lib --> constants["constants/"]
+    
+    supabase --> migrations["migrations/"]
+    supabase --> functions["functions/"]
+    supabase --> types["types.ts"]
+    
+    store --> authStore["authStore.ts"]
+    store --> propertyStore["propertyStore.ts"]
+    store --> subscriptionStore["subscriptionStore.ts"]
+    
+    style root fill:#f5f5f5
+    style app fill:#e3f2fd
+    style components fill:#e8f5e9
+    style hooks fill:#fff8e1
+    style lib fill:#f3e5f5
+    style store fill:#ffecb3

@@ -1,0 +1,20 @@
+C4Context
+    title System Context Diagram - Simplified Apto.rio MVP
+
+    Person(buyer, "Property Buyer", "Searches and views off-plan properties")
+    Person(developer, "Property Developer", "Lists and manages property offerings")
+    Person(agent, "Real Estate Agent", "Represents properties to clients")
+    
+    System(apto, "Apto.rio Platform", "Off-plan property marketplace")
+    
+    System_Ext(supabase, "Supabase", "Backend services and database")
+    System_Ext(openai, "OpenAI API", "Basic content generation")
+    System_Ext(email, "Email Service", "Basic notifications")
+
+    Rel(buyer, apto, "Searches properties, makes inquiries")
+    Rel(developer, apto, "Lists properties, responds to inquiries")
+    Rel(agent, apto, "Manages client relationships")
+    
+    Rel(apto, supabase, "Stores and retrieves data")
+    Rel(apto, openai, "Generates basic content")
+    Rel(apto, email, "Sends notifications")

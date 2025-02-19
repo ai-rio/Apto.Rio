@@ -1,0 +1,53 @@
+sequenceDiagram
+    participant Developer
+    participant UI as Next.js UI
+    participant RQ as React Query
+    participant SB as Supabase Client
+    participant Storage as Supabase Storage
+    participant DB as Supabase Database
+    participant Stripe as Stripe API
+    participant AI as OpenAI API
+    
+    Developer->>UI: Access dashboard
+    UI->>RQ: Check subscription status
+    RQ->>DB: Query subscription
+    DB-->>RQ: Return subscription details
+    
+    alt Not Subscribed / Plan Limit Reached
+        RQ-->>UI: Show subscription options
+        Developer->>UI: Select subscription plan
+        UI->>Stripe: Process subscription
+        Stripe-->>DB: Update subscription
+        DB-->>RQ: Updated subscription status
+        RQ-->>UI: Show property form
+    else Active Subscription
+        RQ-->>UI: Show property form
+    end
+    
+    Developer->>UI: Fill property details
+    Developer->>UI: Upload images
+    UI->>Storage: Upload media files
+    Storage-->>UI: Return media URLs
+    
+    Developer->>UI: Submit property
+    UI->>RQ: Create property mutation
+    
+    alt With AI Enhancement
+        RQ->>AI: Request description enhancement
+        AI-->>RQ: Return enhanced text
+    end
+    
+    RQ->>SB: Save property with media
+    SB->>DB: Insert property record
+    SB->>DB: Insert media records
+    DB-->>SB: Confirm creation
+    SB-->>RQ: Return success
+    RQ-->>UI: Update UI state
+    UI-->>Developer: Show confirmation
+    
+    alt Featured Property
+        Developer->>UI: Select featured option
+        UI->>Stripe: Charge for premium placement
+        Stripe-->>DB: Record payment
+        DB->>DB: Update property.featured = true
+    end

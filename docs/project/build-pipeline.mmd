@@ -1,0 +1,69 @@
+flowchart TD
+    subgraph DeveloperActions["Developer Actions"]
+        Code["Write Code"]
+        Commit["Commit Changes"]
+        Push["Push to Repository"]
+        PR["Create Pull Request"]
+    end
+    
+    subgraph CIPipeline["CI Pipeline (GitHub Actions)"]
+        Checkout["Checkout Code"]
+        Install["Install Dependencies"]
+        Lint["ESLint + TypeScript Check"]
+        Test["Run Tests"]
+        Build["Build Application"]
+        
+        subgraph TestMatrix["Test Matrix"]
+            UnitTests["Unit Tests"]
+            ComponentTests["Component Tests"]
+            IntegrationTests["Integration Tests"]
+        end
+    end
+    
+    subgraph ReviewProcess["Review Process"]
+        CodeReview["Code Review"]
+        ApprovalProcess["Approval Process"]
+        MergeToMain["Merge to Main"]
+    end
+    
+    subgraph VercelDeployment["Vercel Deployment"]
+        PRPreview["PR Preview Environment"]
+        StagingDeploy["Staging Deployment"]
+        ProdDeploy["Production Deployment"]
+    end
+    
+    subgraph PostDeployment["Post Deployment"]
+        HealthCheck["Health Checks"]
+        Monitoring["Error Monitoring"]
+        PerformanceCheck["Performance Checks"]
+    end
+    
+    Code --> Commit
+    Commit --> Push
+    Push --> PR
+    
+    PR --> Checkout
+    Checkout --> Install
+    Install --> Lint
+    Lint --> Test
+    Test --> TestMatrix
+    TestMatrix --> Build
+    
+    Build --> PRPreview
+    
+    PR --> CodeReview
+    CodeReview --> ApprovalProcess
+    ApprovalProcess --> MergeToMain
+    
+    MergeToMain --> StagingDeploy
+    StagingDeploy --> HealthCheck
+    HealthCheck --> ProdDeploy
+    
+    ProdDeploy --> Monitoring
+    ProdDeploy --> PerformanceCheck
+    
+    style DeveloperActions fill:#e3f2fd
+    style CIPipeline fill:#e8f5e9
+    style ReviewProcess fill:#fff3e0
+    style VercelDeployment fill:#f3e5f5
+    style PostDeployment fill:#fbe9e7

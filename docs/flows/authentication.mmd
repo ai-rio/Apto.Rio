@@ -1,0 +1,44 @@
+sequenceDiagram
+    participant User
+    participant NextAuth as Next.js Auth Component
+    participant SupabaseAuth as Supabase Auth
+    participant DB as Database
+    participant Stripe as Stripe API
+    
+    User->>NextAuth: Sign Up / Login
+    NextAuth->>SupabaseAuth: Process authentication
+    
+    alt Social Login
+        SupabaseAuth->>SupabaseAuth: OAuth provider flow
+    else Email/Password
+        SupabaseAuth->>SupabaseAuth: Validate credentials
+    end
+    
+    SupabaseAuth-->>DB: Create/Verify User
+    
+    Note over DB: Trigger handle_new_user()
+    DB->>DB: Create profile record
+    
+    SupabaseAuth-->>NextAuth: Return session
+    NextAuth-->>User: Redirect based on user type
+    
+    alt New User
+        User->>NextAuth: Complete profile
+        NextAuth->>DB: Update profile
+        
+        alt Is Developer or Agent
+            NextAuth->>Stripe: Create Stripe customer
+            Stripe-->>DB: Store Stripe customer ID
+            NextAuth->>User: Show subscription options
+            User->>NextAuth: Select subscription
+            NextAuth->>Stripe: Create subscription
+            Stripe-->>Stripe: Process payment
+            Stripe-->>DB: Update subscription status
+            DB-->>NextAuth: Subscription confirmed
+            NextAuth-->>User: Redirect to dashboard
+        else Is Buyer
+            NextAuth-->>User: Redirect to property search
+        end
+    else Returning User
+        NextAuth-->>User: Redirect to last location
+    end

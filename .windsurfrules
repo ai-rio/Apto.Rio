@@ -1,0 +1,208 @@
+
+## Technical Stack
+
+The Apto.rio MVP leverages the Next.js Stripe Supabase Starter Kit with the following stack:
+
+- **Next.js 14.2.x** with App Router for routing and state management
+- **React 18.2.x** for component composition
+- **TypeScript 4.9.x** for type safety
+- **Tailwind CSS 3.4.x** for styling
+- **Supabase** for database, authentication, and storage
+- **Stripe** for subscription and payment processing
+- **Shadcn UI** for component library
+- **Zod** for validation
+- **yarn** for package management
+
+## Language Requirements
+- All user-facing content must be in Portuguese (Brazil)
+- Code comments and documentation in English
+- Variable names in English following conventions
+
+## Domain name
+- apto.rio.br
+
+## Key Development Principles
+
+### Code Organization
+- Use functional components and pure functions
+- Follow the folder structure established in the starter kit
+- Keep property-specific components in their own directories
+- Use modular, reusable components
+
+### Typescript & Type Safety
+- Use TypeScript for all code
+- Create interfaces for component props
+- Use Zod for form validation and data parsing
+- Implement proper type definitions for Supabase tables
+
+### Component Development
+```typescript
+// Preferred component pattern
+function PropertyCard({ 
+  property, 
+  isFeatured, 
+  onFavorite 
+}: PropertyCardProps) {
+  // Handle errors/edge cases first
+  if (!property) return <PropertyCardSkeleton />
+  
+  // Main component logic
+  const formattedPrice = formatCurrency(property.price)
+  
+  return (
+    <Card className="property-card">
+      {isFeatured && <FeaturedBadge />}
+      <PropertyImage src={property.image} />
+      <CardContent>
+        <PropertyTitle>{property.title}</PropertyTitle>
+        <PropertyPrice>{formattedPrice}</PropertyPrice>
+        <PropertyDetails property={property} />
+      </CardContent>
+      <CardFooter>
+        <FavoriteButton 
+          propertyId={property.id}
+          onClick={onFavorite}
+        />
+      </CardFooter>
+    </Card>
+  )
+}
+
+// Types at the end
+interface PropertyCardProps {
+  property: Property
+  isFeatured?: boolean
+  onFavorite?: (id: string) => void
+}
+```
+
+### State Management
+- Leverage Supabase for data persistence
+- Use React Query/TanStack Query for data fetching (provided by starter kit)
+- Minimize client-side state
+- Use React Server Components where possible
+- Follow the preload pattern to prevent fetch waterfalls
+
+### Error Handling
+- Handle errors and edge cases at the beginning of functions
+- Use early returns for error conditions
+- Implement proper loading states and error boundaries
+- Create user-friendly error messages
+- Log errors appropriately
+
+```typescript
+// Error handling pattern
+async function fetchProperty(id: string) {
+  // Validate inputs first
+  if (!id) return { error: 'ID é obrigatório' }
+  
+  try {
+    const { data, error } = await supabase
+      .from('properties')
+      .select('*')
+      .eq('id', id)
+      .single()
+      
+    if (error) return { error: 'Propriedade não encontrada' }
+    if (!data) return { error: 'Nenhuma informação disponível' }
+    
+    return { data }
+  } catch (err) {
+    console.error('Error fetching property:', err)
+    return { error: 'Erro ao buscar propriedade' }
+  }
+}
+```
+
+### Supabase Integration
+- Extend the existing Supabase schema according to migration plan
+- Implement proper RLS policies for access control
+- Use Supabase storage for property images and documents
+- Follow the authentication flow from the starter kit
+- Add property-specific webhooks where needed
+
+### Stripe Integration
+- Use existing Stripe integration from starter kit
+- Implement the custom pricing plans for developers and agents
+- Add property-specific payment features (featured listings)
+- Handle subscription status checks before property creation
+- Implement proper webhook handling for subscription events
+
+## MVP-Specific Guidelines
+
+### Property Components
+- Create reusable property card and detail components
+- Implement responsive image galleries with proper optimization
+- Build search filters with query parameter support
+- Ensure all property components work on mobile devices
+- Include skeleton loading states for all property components
+
+### User Role Management
+- Extend user profiles with role-specific information
+- Implement role-based access control using RLS
+- Create separate dashboards for each user type
+- Handle role-specific subscriptions
+
+### Form Implementation
+```typescript
+// Property form pattern with Zod validation
+const propertyFormSchema = z.object({
+  title: z.string().min(5, {
+    message: 'Título deve ter pelo menos 5 caracteres'
+  }),
+  description: z.string().min(20, {
+    message: 'Descrição deve ter pelo menos 20 caracteres'
+  }),
+  price: z.number().positive({
+    message: 'Preço deve ser um valor positivo'
+  }),
+  // Additional fields
+})
+
+function PropertyForm({ initialData, onSubmit }: PropertyFormProps) {
+  const form = useForm<z.infer<typeof propertyFormSchema>>({
+    resolver: zodResolver(propertyFormSchema),
+    defaultValues: initialData || {
+      title: '',
+      description: '',
+      price: 0,
+    },
+  })
+  
+  // Form implementation
+}
+```
+
+### Performance Optimization
+- Implement proper image optimization
+- Use caching strategies for property queries
+- Optimize for Core Web Vitals
+- Implement pagination for property listings
+- Use Suspense and streaming for improved UX
+
+### AI Integration
+- Keep AI features focused on essential MVP needs
+- Implement proper error handling for AI responses
+- Cache AI-generated content where appropriate
+- Handle rate limiting gracefully
+- Follow data privacy considerations
+
+## Testing Requirements
+- Implement unit tests for utility functions
+- Create component tests for key property components
+- Write integration tests for critical user journeys
+- Test payment flows with Stripe test mode
+- Verify responsive design across device sizes
+
+## Accessibility Requirements
+- Ensure proper keyboard navigation
+- Implement proper ARIA attributes
+- Maintain adequate color contrast
+- Provide text alternatives for images
+- Test with screen readers
+
+## Documentation
+- Prior to making any implementations, you must consult the files listed at [docs\documentation-refences.md](.docs\documentation-refences.md)
+- Mandatory documentation requirements are listed at [docs\documentation-refences.md](.docs\documentation-refences.md)
+- Mandatory documentation creation guidelines are provided in [docs\documentation-creation-checklist.md](.docs\documentation-creation-checklist.md)
+

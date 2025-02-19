@@ -1,0 +1,52 @@
+graph TD
+    subgraph CoreComponents["Core Components (Starter Kit)"]
+        Shell["AppShell"]
+        Auth["AuthComponents"]
+        UI["UIComponents"]
+        Subscription["SubscriptionComponents"]
+        Settings["SettingsComponents"]
+    end
+    
+    subgraph PropertyComponents["Property Components"]
+        PropertyList["PropertyListingComponents"]
+        PropertyDetail["PropertyDetailComponents"]
+        PropertyForm["PropertyFormComponents"]
+        PropertySearch["PropertySearchComponents"]
+        MediaManager["MediaManagerComponents"]
+    end
+    
+    subgraph DashboardComponents["Dashboard Components"]
+        DevDashboard["DeveloperDashboardComponents"]
+        AgentDashboard["AgentDashboardComponents"]
+        BuyerDashboard["BuyerDashboardComponents"]
+        Analytics["AnalyticsComponents"]
+        InquiryManager["InquiryManagerComponents"]
+    end
+    
+    Shell --> Auth
+    Shell --> UI
+    Shell --> Subscription
+    Shell --> PropertyList
+    Shell --> DashboardComponents
+    
+    PropertyList --> PropertyDetail
+    PropertyDetail --> InquiryManager
+    PropertyForm --> MediaManager
+    PropertySearch --> PropertyList
+    
+    DevDashboard --> PropertyForm
+    DevDashboard --> InquiryManager
+    DevDashboard --> Analytics
+    
+    AgentDashboard --> PropertyList
+    AgentDashboard --> InquiryManager
+    
+    BuyerDashboard --> PropertyList
+    BuyerDashboard --> InquiryManager
+    
+    Auth --> Settings
+    Subscription --> Settings
+    
+    style CoreComponents fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    style PropertyComponents fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style DashboardComponents fill:#fff8e1,stroke:#f57f17,stroke-width:2px

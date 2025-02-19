@@ -1,0 +1,42 @@
+flowchart TB
+    subgraph Frontend["Next.js Frontend"]
+        WebUI["Web UI\nResponsive Design"]
+        
+        subgraph Components["Core Components"]
+            PropertyComponents["Property Components"]
+            UserComponents["User Components"]
+            AgentComponents["Agent Components"]
+            SearchComponents["Search Components"]
+        end
+        
+        DataHooks["Data Hooks"]
+        AuthHooks["Auth Hooks"]
+    end
+
+    subgraph Supabase["Supabase Platform"]
+        Auth["Authentication"]
+        Database["PostgreSQL Database"]
+        Storage["File Storage"]
+        EdgeFunctions["Essential Edge Functions"]
+    end
+
+    subgraph External["External Services"]
+        OpenAI["OpenAI API\nBasic Generation"]
+        EmailService["Email Service"]
+    end
+
+    WebUI --> Components
+    Components --> DataHooks
+    Components --> AuthHooks
+    
+    DataHooks --> Database
+    DataHooks --> Storage
+    AuthHooks --> Auth
+    DataHooks --> EdgeFunctions
+    
+    EdgeFunctions --> OpenAI
+    Auth --> EmailService
+
+    style Frontend fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style Supabase fill:#3FCF8E20,stroke:#3FCF8E,stroke-width:2px
+    style External fill:#f0f0f0,stroke:#666,stroke-width:2px

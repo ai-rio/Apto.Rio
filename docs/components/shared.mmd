@@ -1,0 +1,69 @@
+classDiagram
+    class UIComponents {
+        +Button button(variant, size, loading)
+        +Input input(type, placeholder, error)
+        +Select select(options, placeholder)
+        +Modal modal(title, isOpen, onClose)
+        +Card card(padding, shadow)
+        +Avatar avatar(src, size, fallback)
+        +Badge badge(variant, text)
+        +Tabs tabs(items, defaultValue)
+        +Toast toast(title, description, variant)
+        +Skeleton skeleton(width, height)
+        +Dropdown dropdown(items, trigger)
+    }
+    
+    class FormComponents {
+        +Form form(onSubmit, defaultValues)
+        +FormField field(name, label, required)
+        +FormItem item(className)
+        +FormLabel label(text)
+        +FormControl control(children)
+        +FormDescription description(text)
+        +FormMessage message(error)
+        +FormSubmit submit(loading, text)
+    }
+    
+    class LayoutComponents {
+        +Shell shell(children)
+        +Header header(user, navigation)
+        +Sidebar sidebar(items, collapsed)
+        +Footer footer(links, copyright)
+        +Container container(size, className)
+        +Grid grid(cols, gap)
+        +Flex flex(direction, align, justify)
+        +Divider divider(orientation)
+    }
+    
+    class FeedbackComponents {
+        +LoadingScreen loadingScreen(text)
+        +LoadingSpinner spinner(size, color)
+        +ErrorBoundary errorBoundary(fallback)
+        +EmptyState emptyState(title, description, action)
+        +Notification notification(title, body, action)
+        +Alert alert(title, description, variant)
+        +Progress progress(value, max)
+    }
+    
+    class NavigationComponents {
+        +Navbar navbar(items, user)
+        +Breadcrumbs breadcrumbs(items)
+        +Pagination pagination(total, current, onChange)
+        +TabNavigation tabNavigation(items, active)
+        +Steps steps(items, current)
+        +SideNavigation sideNav(items, active)
+    }
+    
+    class DataComponents {
+        +Table table(columns, data, sorting)
+        +DataGrid dataGrid(columns, data, paging)
+        +List list(items, renderItem)
+        +TreeView treeView(items, expanded)
+        +Timeline timeline(items)
+        +Calendar calendar(events, onSelect)
+    }
+    
+    UIComponents <|-- FormComponents
+    UIComponents <|-- FeedbackComponents
+    LayoutComponents <|-- NavigationComponents
+    DataComponents <|-- NavigationComponents

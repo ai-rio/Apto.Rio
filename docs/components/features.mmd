@@ -1,0 +1,82 @@
+classDiagram
+    class PropertyListingComponents {
+        +PropertyCard card(property, favoriteAction)
+        +PropertyGrid grid(properties, loading)
+        +PropertyCarousel carousel(featured)
+        +PropertyListHeader header(title, filters)
+        +PropertyListItem item(property, actions)
+        +FeaturedBadge featuredBadge()
+        +PropertyStatusBadge statusBadge(status)
+        +ListingPagination pagination(total, current)
+    }
+    
+    class PropertyDetailComponents {
+        +PropertyHeader header(title, price, location)
+        +PropertyGallery gallery(images)
+        +PropertySpecs specs(bedrooms, bathrooms, area)
+        +PropertyDescription description(content)
+        +PropertyLocation location(coordinates, address)
+        +PropertyTimeline timeline(stages, current)
+        +DeveloperInfo developerInfo(developer)
+        +PropertyShareButtons shareButtons(url, title)
+        +PropertyActions actions(inquire, favorite)
+    }
+    
+    class PropertyFormComponents {
+        +PropertyForm form(onSubmit, property)
+        +MediaUploader mediaUploader(onUpload, existing)
+        +LocationSelector locationSelector(onChange)
+        +FeatureSelector featureSelector(selected)
+        +PricingInput pricingInput(value, onChange)
+        +UnitTypeForm unitTypeForm(units, onChange)
+        +DevelopmentStageSelector stageSelector(value)
+        +PreviewButton previewButton(data)
+        +AIEnhanceButton enhanceButton(description)
+    }
+    
+    class PropertySearchComponents {
+        +SearchFilters filters(onChange, values)
+        +LocationFilter locationFilter(radius, center)
+        +PriceRangeFilter priceFilter(min, max)
+        +FeatureFilter featureFilter(options)
+        +DeveloperFilter developerFilter(developers)
+        +StageFilter stageFilter(stages)
+        +DateRangeFilter dateFilter(from, to)
+        +SavedSearchButton savedSearchButton(search)
+        +ClearFiltersButton clearButton(onClick)
+    }
+    
+    class DeveloperDashboardComponents {
+        +PropertyManager propertyManager(properties)
+        +InquiryDashboard inquiryDashboard(inquiries)
+        +Analytics analytics(views, inquiries)
+        +SubscriptionInfo subscriptionInfo(plan)
+        +AccountManager accountManager(profile)
+        +ActivityFeed activityFeed(events)
+        +NotificationCenter notificationCenter(notifications)
+    }
+    
+    class AgentDashboardComponents {
+        +ClientManager clientManager(clients)
+        +PropertyPortfolio portfolio(properties)
+        +CommissionTracker commissionTracker(deals)
+        +LeadBoard leadBoard(leads)
+        +PerformanceMetrics metrics(stats)
+        +MarketInsights insights(data)
+    }
+    
+    class BuyerDashboardComponents {
+        +SavedProperties savedProperties(favorites)
+        +SearchHistory searchHistory(searches)
+        +InquiryInbox inquiryInbox(messages)
+        +PropertyComparison comparison(selected)
+        +ViewingSchedule schedule(appointments)
+        +NotificationPreferences notificationPrefs(settings)
+    }
+    
+    PropertyListingComponents <|-- PropertyDetailComponents
+    PropertyFormComponents <|-- PropertyDetailComponents
+    PropertySearchComponents <|-- PropertyListingComponents
+    DeveloperDashboardComponents <|-- PropertyFormComponents
+    AgentDashboardComponents <|-- PropertyListingComponents
+    BuyerDashboardComponents <|-- PropertyListingComponents

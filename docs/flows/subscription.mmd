@@ -1,0 +1,45 @@
+stateDiagram-v2
+    [*] --> NotSubscribed
+    
+    state NotSubscribed {
+        [*] --> ViewingPlans
+        ViewingPlans --> SelectingPlan: Choose Plan
+        SelectingPlan --> ProcessingPayment: Proceed to Checkout
+    }
+    
+    ProcessingPayment --> PaymentSuccess: Payment Approved
+    ProcessingPayment --> PaymentFailed: Payment Declined
+    PaymentFailed --> SelectingPlan: Try Again
+    PaymentSuccess --> SubscriptionActive: Database Updated
+    
+    state SubscriptionActive {
+        [*] --> StandardSubscription
+        StandardSubscription --> TrialEnding: 3 Days Before Trial End
+        StandardSubscription --> RenewalPending: 3 Days Before Renewal
+        StandardSubscription --> AccessingManagement: Access Settings
+        
+        AccessingManagement --> UpdatingPaymentMethod: Update Payment
+        AccessingManagement --> ChangingPlan: Change Plan
+        AccessingManagement --> CancelingSubscription: Cancel Subscription
+        
+        ChangingPlan --> UpgradingPlan: Select Higher Tier
+        ChangingPlan --> DowngradingPlan: Select Lower Tier
+        UpgradingPlan --> ProcessingPayment: Additional Payment
+        DowngradingPlan --> SchedulingChange: Applied at Next Cycle
+        
+        RenewalPending --> RenewalSuccess: Payment Processed
+        RenewalPending --> RenewalFailed: Payment Failed
+        RenewalFailed --> PaymentRetry: Retry Payment
+        PaymentRetry --> RenewalSuccess: Success
+        PaymentRetry --> SubscriptionPaused: Multiple Failures
+    }
+    
+    SubscriptionPaused --> PaymentRetry: Update Payment
+    SubscriptionPaused --> SubscriptionCanceled: Grace Period Expired
+    
+    CancelingSubscription --> ConfirmingCancellation: Confirm Intent
+    ConfirmingCancellation --> SubscriptionCanceled: Confirmed
+    ConfirmingCancellation --> StandardSubscription: Canceled
+    
+    SubscriptionCanceled --> NotSubscribed: Access Restricted
+    SubscriptionCanceled --> [*]
