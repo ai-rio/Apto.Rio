@@ -19,13 +19,20 @@ const nextConfig = {
       },
     ]
   },
-  // Configure allowed hostnames
-  experimental: {
-    serverActions: true,
-  },
   // Add custom domain configuration
-  production: {
-    domains: ['apto.rio.br', 'www.apto.rio.br'],
+  async rewrites() {
+    return [
+      {
+        source: '/:path*',
+        destination: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'apto.rio.br',
+          },
+        ],
+      },
+    ]
   },
 }
 
