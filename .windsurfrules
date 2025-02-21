@@ -202,6 +202,8 @@ function PropertyForm({ initialData, onSubmit }: PropertyFormProps) {
 - Test with screen readers
 
 ## Documentation
+- You must guide your actionsand thecisions by complying with:
+ - [docs\apto-rio-key-objectives.md](.docs\apto-rio-key-objectives.md)
 - Prior to making any implementations, you must consult the files listed at [docs\documentation-refences.md](.docs\documentation-refences.md)
 - Mandatory documentation requirements are listed at [docs\documentation-refences.md](.docs\documentation-refences.md)
 - Mandatory documentation creation guidelines are provided in [docs\documentation-creation-checklist.md](.docs\documentation-creation-checklist.md)

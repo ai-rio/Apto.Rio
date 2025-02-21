@@ -26,16 +26,16 @@ export function Bottom() {
     <div className='bg-secondary-700 text-white py-10 px-6 sm:px-12'>
       <div className='container mx-auto'>
         <div className='flex flex-col sm:flex-row sm:justify-between gap-12'>
-          <div className='mb-6 sm:mb-0 sm:w-1/3'>
+          <div className='mb-6 sm:mb-0 sm:w-1/3 [&>*]:text-black'>
             <h3 className='text-xl font-bold mb-4'>🚀 Ready to boost your React skills?</h3>
-            <p className='text-gray-300'>
+            <p>
               Join <strong>ReactCompanies</strong> today and explore a world of opportunities for React developers.
               Whether you&apos;re a junior or a senior, we have something for everyone. 🚀 Build, collaborate, and level
               up your career with the best in the business!
             </p>
           </div>
 
-          <div className='mb-6 sm:mb-0 sm:w-1/3'>
+          <div className='mb-6 sm:mb-0 sm:w-1/3 [&>*]:text-black'>
             <h3 className='text-xl font-bold mb-4'>💚 Why ReactCompanies?</h3>
 
             <p>🌟 Access exclusive job listings tailored for React developers.</p>
@@ -43,7 +43,7 @@ export function Bottom() {
             <p>🚀 Stay ahead with the latest industry trends and tips.</p>
           </div>
 
-          <div className='sm:w-1/3'>
+          <div className='sm:w-1/3 [&>*]:text-black'>
             <h3 className='text-xl font-bold mb-4'>🗣️ Let&apos;s connect!</h3>
 
             <p>📩 Follow us on our social channels for updates, articles, and more.</p>

@@ -4,16 +4,16 @@
 **Goal:** Extend starter kit with property-specific database schema and core features
 
 ### Database Extension
-- [ ] Add property tables to Supabase schema
-- [ ] Create developer_profiles and agent_profiles tables
-- [ ] Set up property_media table
-- [ ] Implement inquiries and favorites tables
-- [ ] Configure RLS policies for property data
+- [x] Add property tables to Supabase schema
+- [x] Create developer_profiles and agent_profiles tables
+- [x] Set up property_media table
+- [x] Implement inquiries and favorites tables
+- [x] Configure RLS policies for property data
 
 ### User Type Extension
-- [ ] Extend profile schema with user_type field
-- [ ] Implement role-based redirects after login
-- [ ] Create user type selection during registration
+- [x] Extend profile schema with user_type field
+- [x] Implement role-based redirects after login
+- [x] Create user type selection during registration
 - [ ] Build basic profile pages for each user type
 - [ ] Configure role-based navigation
 

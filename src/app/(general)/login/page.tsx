@@ -1,85 +1,92 @@
 'use client'
 
-import { useState } from 'react'
-import { useSupabaseService } from '@/services/api/supabaseService'
+import { useState, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { LoginForm } from "@/components/login-form"
+import { createClientSupabaseClient } from '@/utils/supabase/server'
 
-import Image from 'next/image'
-import github from '@/assets/images/icons/github.svg'
-import linkedin from '@/assets/images/icons/linkedin.svg'
+export default function LoginPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [authError, setAuthError] = useState<string | null>(null)
 
-export default function Login() {
-  const supabaseService = useSupabaseService()
+  const handleLogin = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setAuthError(null)
 
-  const loginWithGithub = async () => {
-    supabaseService.loginWithGithub()
-  }
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
 
-  const loginWithLinkedIn = async () => {
-    supabaseService.loginWithLinkedIn()
-  }
+    // Use client Supabase instance
+    const supabase = createClientSupabaseClient()
 
-  const loginText = () => (isLogin ? 'You can use your account to log in' : 'You can use your account to register')
+    // Use Promise-based approach instead of async/await
+    supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+    .then(({ data, error }) => {
+      if (error) throw error
 
-  const [isLogin, setIsLogin] = useState(true)
+      // Fetch user metadata
+      return supabase.auth.getUser()
+    })
+    .then(({ data: { user } }) => {
+      if (!user) throw new Error('Usuário não encontrado')
+
+      // Route based on user type
+      switch (user.user_metadata?.user_type) {
+        case 'developer':
+          router.push('/profile/developer')
+          break
+        case 'agent':
+          router.push('/profile/agent')
+          break
+        case 'investor':
+          router.push('/profile/investor')
+          break
+        default:
+          router.push('/dashboard')
+      }
+    })
+    .catch((error) => {
+      console.error('Erro de autenticação:', error)
+      setAuthError(error.message || 'Erro de autenticação')
+    })
+    .finally(() => {
+      setIsLoading(false)
+    })
+  }, [router])
 
   return (
-    <div className='py-8 flex items-center justify-center bg-gray-100'>
-      <div className='bg-white p-8 rounded-xl shadow-lg w-full max-w-md'>
-        <h2 className='text-2xl font-bold text-center mb-6 text-primary-700'>{isLogin ? 'login' : 'register'}</h2>
-
-        <form>
-          <div className='my-6'>
-            <p className='text-center mb-4'>{loginText()}</p>
-            <div className='flex justify-center space-x-4'>
-              <button
-                onClick={loginWithGithub}
-                className='cursor-pointer flex items-center justify-center outline outline-gray-700 text-gray-700 py-2 px-4 rounded hover:outline-gray-900 hover:shadow-lg hover:bg-slate-50'
-              >
-                <Image
-                  alt='Github'
-                  src={github}
-                  height='36'
-                  width='36'
-                  className='mr-2'
-                />
-                with GitHub
-              </button>
-
-              <button
-                onClick={loginWithLinkedIn}
-                className='cursor-pointer flex items-center justify-center outline outline-blue-700 text-blue-700 py-2 px-3 rounded hover:outline-blue-900 hover:shadow-lg hover:bg-slate-50'
-              >
-                <Image
-                  alt='linkedin'
-                  src={linkedin}
-                  height='36'
-                  width='36'
-                  className='mr-2'
-                />
-                with Linkedin
-              </button>
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Login - Apto.rio</CardTitle>
+          <CardDescription>Faça login para acessar sua conta</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {authError && (
+            <div className="mb-4 text-red-500">
+              {authError}
             </div>
+          )}
+          <LoginForm 
+            onSubmit={handleLogin} 
+            isLoading={isLoading} 
+          />
+          <div className="mt-4 text-center">
+            <Link href="/signup" className="text-blue-600 hover:underline">
+              Criar nova conta
+            </Link>
           </div>
-
-          {isLogin && (
-            <button
-              onClick={() => setIsLogin(false)}
-              className='text-sm text-primary-700 hover:underline mx-auto block'
-            >
-              New here? Sign up now →
-            </button>
-          )}
-
-          {!isLogin && (
-            <button
-              onClick={() => setIsLogin(true)}
-              className='text-sm text-primary-700 hover:underline mx-auto block'
-            >
-              Return to Login
-            </button>
-          )}
-        </form>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
